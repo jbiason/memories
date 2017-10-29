@@ -3,8 +3,11 @@
 
 """A memory collection app."""
 
+import hashlib
+
 from flask import Flask
 from flask import redirect
+from flask import render_template
 from flask import request
 from flask import session
 from flask import url_for
@@ -33,7 +36,25 @@ def index():
     return 'Hello world'
 
 
-@app.route('/login')
+@app.route('/login', methods=['GET'])
 def login():
     """Ask for login information."""
-    return 'Login'
+    return render_template('login.html')
+
+
+@app.route('/login', methods=['POST'])
+def do_login():
+    """Check the login information."""
+    if 'username' not in request.values or 'password' not in request.values:
+        # XXX add missing fields error
+        return render_template('login.html')
+
+    digest = hashlib.md5('{}:{}'.format(
+        request.values['username'],
+        request.values['password'])).hexdigest()
+    if digest != app.config['LOGIN_INFO']:
+        # XXX add wrong login error
+        return render_template('login.html')
+
+    session['login'] = digest
+    return redirect(url_for('index'))
