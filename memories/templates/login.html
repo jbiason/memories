@@ -1,27 +1,29 @@
 {% extends "layout.html" %}
 
 {% block maincontent %}
-	<div class="row">
-		<div class="columns small-8 small-offset-2">
-			<label for="">
-				Username
-				<input type="text" name="username" id="username" value="" autofocus />
-			</label>
+	<form action="{{ url_for('login') }}" method="post">
+		<div class="row">
+			<div class="columns small-8 small-offset-2">
+				<label for="">
+					Username
+					<input type="text" name="username" id="username" value="" autofocus />
+				</label>
+			</div>
 		</div>
-	</div>
 
-	<div class="row">
-		<div class="columns small-8 small-offset-2">
-			<label for="">
-				Password
-				<input type="password" name="password" id="password" value="" />
-			</label>
+		<div class="row">
+			<div class="columns small-8 small-offset-2">
+				<label for="">
+					Password
+					<input type="password" name="password" id="password" value="" />
+				</label>
+			</div>
 		</div>
-	</div>
 
-	<div class="row">
-		<div class="columns small-8 small-offset-2 centered">
-			<button type="button" class="button">Login</button>
+		<div class="row">
+			<div class="columns small-8 small-offset-2 centered">
+				<button type="submit" class="button">Login</button>
+			</div>
 		</div>
-	</div>
+	</form>
 {% endblock %}
